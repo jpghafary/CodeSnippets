@@ -15,13 +15,13 @@ import java.util.stream.IntStream;
 public class MissingNumber {
 	
 	private static int findMissingNumber(List<Integer> input) {
-		int existingTotal = input.stream().collect(Collectors.summingInt(Integer::intValue));
+		int existingTotal = input.stream().mapToInt(Integer::intValue).sum();
 		
-		int min = input.stream().mapToInt(v -> v).min().getAsInt();
-		int max = input.stream().mapToInt(v -> v).max().getAsInt();
+		int min = input.stream().mapToInt(Integer::intValue).min().getAsInt();
+		int max = input.stream().mapToInt(Integer::intValue).max().getAsInt();
 		
 		IntStream stream = IntStream.rangeClosed(min, max);
-		int expectedTotal = stream.boxed().collect(Collectors.summingInt(Integer::intValue));
+		int expectedTotal = stream.boxed().mapToInt(Integer::intValue).sum();
 		
 		return expectedTotal - existingTotal;
 	}
